@@ -28,7 +28,7 @@ local function dolibrary (name)
 end
 
 local function handle_luainit ()
-    local LUA_INIT = "LUA0_INIT"
+    local LUA_INIT = "LUA_INIT"
     local init = os.getenv(LUA_INIT)
     if not init then return end
     if init:sub(1, 1) == '@' then
