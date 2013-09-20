@@ -247,6 +247,20 @@ like `load` (5.2) but for TP chunk (includes 5.1 `loadstring`).
 
 like `loadfile` (5.2) but for TP chunk.
 
+#### `tvm.op (table)`
+
+constructor of `op` representation.
+
+#### `tvm.op:addkv (k, v)`
+
+#### `tvm.op:push (v)`
+
+#### `tvm.ops (table)`
+
+constructor of `ops` representation.
+
+#### `tvm.ops:push (v)`
+
 #### `tvm.quote (s)`
 
 returns a quoted string (not printable character are escaped) suitable to be safely read back by the TP interpreter.
@@ -262,58 +276,12 @@ like `string.char` but returns a string which is the concatenation of the UTF-8 
 
 ## Code Generation
 
-Here, an example of code generation library :
-
-`$ cat ost.tp`
-
-    (!let pairs pairs)
-    (!let setmetatable setmetatable)
-    (!let tostring tostring)
-    (!let type type)
-    (!let tconcat (!index table "concat"))
-
-    (!let op_mt ("__tostring": (!lambda (o)
-                    (!let t ())
-                    (!if (!index o 0)
-                         (!assign (!index t 1) (!concat "0: " (!call1 tostring (!index o 0)))))
-                    (!loop i 1 (!len o) 1
-                            (!assign (!index t (!add (!len t) 1)) (!call1 tostring (!index o i))))
-                    (!for (k v) ((!call pairs o))
-                            (!if (!or (!or (!ne (!call1 type k) "number") (!lt k 0)) (!gt k (!len o)))
-                                 (!assign (!index t (!add (!len t) 1)) (!mconcat (!call1 tostring k) ": " (!call1 tostring v)))))
-                    (!return (!mconcat (!or (!and (!or (!eq (!index o 1) "!line") (!eq (!index o 1) "!do")) "\n(") "(") (!call1 tconcat t " ") ")"))) ))
-    (!let op (!call1 setmetatable (
-            "push": (!lambda (self v)
-                    (!assign (!index self (!add (!len self) 1)) v)
-                    (!return self))
-            "addkv": (!lambda (self k v)
-                    (!assign (!index self k) v)
-                    (!return self))
-            ) ("__call": (!lambda (func t)
-                    (!return (!call1 setmetatable t op_mt))) )))
-    (!assign (!index op_mt "__index") op)
-
-    (!let ops_mt ("__tostring": (!lambda (o)
-                    (!let t ())
-                    (!loop i 1 (!len o) 1
-                            (!assign (!index t (!add (!len t) 1)) (!call1 tostring (!index o i))))
-                    (!return (!call1 tconcat t))) ))
-    (!let ops (!call1 setmetatable (
-            "push": (!lambda (self v)
-                    (!assign (!index self (!add (!len self) 1)) v)
-                    (!return self))
-            ) ("__call": (!lambda (func t)
-                    (!return (!call1 setmetatable t ops_mt))))))
-    (!assign (!index ops_mt "__index") ops)
-
-    (!return ("op": op "ops": ops ))
-
+Here, an example with the code generation library :
 
 `$ cat ost.t`
 
-    (!let _ (!call1 (!index tvm "dofile") "ost.tp"))
-    (!let op (!index _ "op"))
-    (!let ops (!index _ "ops"))
+    (!let op (!index tvm "op"))
+    (!let ops (!index tvm "ops"))
     (!let quote (!index tvm "quote"))
 
     (!let o (!call1 ops (

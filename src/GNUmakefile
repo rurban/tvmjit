@@ -688,6 +688,10 @@ lunokhod.h: lua/lunokhod.lua
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) -b lua/lunokhod.lua lunokhod.h
 
+ops.h: ops.tp
+	$(E) "GEN     $@"
+	$(Q)$(RUN_TVMJIT) -b ops.tp ops.h
+
 lua/lunokhod.tp: lua/lunokhod.lua
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp lua/lunokhod.lua > lua/lunokhod.j

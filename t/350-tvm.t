@@ -16,15 +16,18 @@
 (!let dofile (!index tvm "dofile"))
 (!let load (!index tvm "load"))
 (!let loadfile (!index tvm "loadfile"))
+(!let op (!index tvm "op"))
+(!let ops (!index tvm "ops"))
 (!let open (!index io "open"))
 (!let unlink (!index os "remove"))
+(!let tostring tostring)
 
 (!let plan plan)
 (!let is is)
 (!let error_contains error_contains)
 (!let type_ok type_ok)
 
-(!call plan 51)
+(!call plan 58)
 
 (!call contains (!index tvm "_VERSION") "TvmJIT 0.1.2" "variable _VERSION")
 
@@ -186,3 +189,23 @@
 (!call is f !nil "function loadfile (syntax error)")
 (!call contains msg "foo.tp:")
 (!call unlink "foo.tp") ; clean up
+
+(!let o1 (!call1 op ("!call" "print" (!call1 quote "hello"))))
+(!call is (!call1 tostring o1) "(!call print \"hello\")" "op")
+(!let o2 (!call1 op ((!call1 quote "no"): 0 (!call1 quote "yes"): 1)))
+(!call is (!call1 tostring o2) "(\"no\": 0 \"yes\": 1)")
+(!let o3 (!call1 op (0: (!call1 quote "zero") (!call1 quote "one") (!call1 quote "two"))))
+(!call is (!call1 tostring o3) "(0: \"zero\" \"one\" \"two\")")
+(!let o4 (!call1 op ("!line")))
+(!callmeth o4 push 4)
+(!call is (!call1 tostring o4) "\n(!line 4)")
+(!let o5 (!call1 op ()))
+(!callmeth o5 addkv (!call1 quote "key") (!call1 quote "value"))
+(!call is (!call1 tostring o5) "(\"key\": \"value\")")
+
+(!let o (!call1 ops ((!call1 op ("!line" 1)) o1)))
+(!call is (!call1 tostring o) "\n(!line 1)(!call print \"hello\")" "ops")
+(!callmeth o push (!call1 op ("!line" 2)))
+(!callmeth o push o1)
+(!call is (!call1 tostring o) "\n(!line 1)(!call print \"hello\")\n(!line 2)(!call print \"hello\")")
+
