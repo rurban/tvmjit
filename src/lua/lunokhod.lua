@@ -99,7 +99,7 @@ local function chunkid (source, max)
             return '...' .. sub(source, -max)
         end
     else                        -- string; format as [string "source"]
-        source = sub(source, 1, find(source, "\n") - 1)
+        source = sub(source, 1, (find(source, "\n") or #source) - 1)
         source = (#source < (max - 11)) and source or sub(source, 1, max - 14) .. '...'
         return '[string "' .. source .. '"]'
     end

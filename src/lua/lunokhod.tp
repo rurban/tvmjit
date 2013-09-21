@@ -56,7 +56,7 @@
 (!do
 (!line 97)(!return (!call sub source 2)))(!do
 (!line 99)(!return (!concat "..." (!call sub source (!neg max)))))))(!do
-(!line 102)(!assign source (!call sub source 1 (!sub (!call find source "\x0A") 1)))
+(!line 102)(!assign source (!call sub source 1 (!sub (!or (!call1 find source "\x0A") (!len source)) 1)))
 (!line 103)(!assign source (!or (!and (!lt (!len source) (!sub max 11)) source) (!concat (!call sub source 1 (!sub max 14)) "...")))
 (!line 104)(!return (!concat "[string \"" (!concat source "\"]"))))))))
 
