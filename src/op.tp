@@ -27,20 +27,6 @@
 (!assign (!index op_mt "__index") op)
 (!assign (!index tvm "op") op)
 
-(!let ops_mt ("__tostring": (!lambda (o)
-                (!let t ())
-                (!loop i 1 (!len o) 1
-                        (!assign (!index t (!add (!len t) 1)) (!call1 tostring (!index o i))))
-                (!return (!call1 tconcat t))) ))
-(!let ops (!call1 setmetatable (
-        "push": (!lambda (self v)
-                        (!assign (!index self (!add (!len self) 1)) v)
-                        (!return self))
-        ) ("__call": (!lambda (func t)
-                        (!return (!call1 setmetatable t ops_mt))))))
-(!assign (!index ops_mt "__index") ops)
-(!assign (!index tvm "ops") ops)
-
 (!assign (!index tvm "concat") (!lambda (t sep i j)
                 (!let t2 ())
                 (!loop i (!or i 1) (!or j (!len t)) 1

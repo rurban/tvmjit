@@ -686,16 +686,16 @@ RUN_TVMJIT := ./$(TVMJIT_T)
 
 lunokhod.h: lua/lunokhod.lua
 	$(E) "GEN     $@"
-	$(Q)$(RUN_TVMJIT) -b lua/lunokhod.lua lunokhod.h
+	$(Q)$(RUN_TVMJIT) -b $< $@
 
-ops.h: ops.tp
+op.h: op.tp
 	$(E) "GEN     $@"
-	$(Q)$(RUN_TVMJIT) -b ops.tp ops.h
+	$(Q)$(RUN_TVMJIT) -b $< $@
 
 lua/lunokhod.tp: lua/lunokhod.lua
 	$(E) "GEN     $@"
-	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp lua/lunokhod.lua > lua/lunokhod.j
-	$(Q)cp lua/lunokhod.j lua/lunokhod.tp
+	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > lua/lunokhod.j
+	$(Q)cp lua/lunokhod.j $@
 	$(Q)rm lua/lunokhod.j
 
 lua/lua.tp: lua/lua.lua lua/lunokhod.tp

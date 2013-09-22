@@ -11,6 +11,7 @@
 
 (!let concat (!index tvm "concat"))
 (!let escape (!index tvm "escape"))
+(!let insert (!index table "insert"))
 (!let quote (!index tvm "quote"))
 (!let wchar (!index tvm "wchar"))
 (!let unpack (!index tvm "unpack"))
@@ -18,7 +19,6 @@
 (!let load (!index tvm "load"))
 (!let loadfile (!index tvm "loadfile"))
 (!let op (!index tvm "op"))
-(!let ops (!index tvm "ops"))
 (!let open (!index io "open"))
 (!let unlink (!index os "remove"))
 (!let tostring tostring)
@@ -217,9 +217,9 @@
 (!callmeth o5 addkv (!call1 quote "key") (!call1 quote "value"))
 (!call is (!call1 tostring o5) "(\"key\": \"value\")")
 
-(!let o (!call1 ops ((!call1 op ("!line" 1)) o1)))
-(!call is (!call1 tostring o) "\n(!line 1)(!call print \"hello\")" "ops")
-(!callmeth o push (!call1 op ("!line" 2)))
-(!callmeth o push o1)
-(!call is (!call1 tostring o) "\n(!line 1)(!call print \"hello\")\n(!line 2)(!call print \"hello\")")
+(!let o ((!call1 op ("!line" 1)) o1))
+(!call is (!call1 concat o) "\n(!line 1)(!call print \"hello\")" "ops")
+(!call insert o (!call1 op ("!line" 2)))
+(!call insert o o1)
+(!call is (!call1 concat o) "\n(!line 1)(!call print \"hello\")\n(!line 2)(!call print \"hello\")")
 

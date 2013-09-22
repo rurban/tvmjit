@@ -259,12 +259,6 @@ constructor of `op` representation.
 
 #### `tvm.op:push (v)`
 
-#### `tvm.ops (table)`
-
-constructor of `ops` representation.
-
-#### `tvm.ops:push (v)`
-
 #### `tvm.quote (s)`
 
 returns a quoted string (not printable character are escaped) suitable to be safely read back by the TP interpreter.
@@ -284,11 +278,12 @@ Here, an example with the code generation library :
 
 `$ cat ost.t`
 
+    (!let concat (!index tvm "concat"))
     (!let op (!index tvm "op"))
-    (!let ops (!index tvm "ops"))
     (!let quote (!index tvm "quote"))
+    (!let insert (!index table "insert"))
 
-    (!let o (!call1 ops (
+    (!let o (
         (!call1 op ("!line" 1))
         (!call1 op ("!call" "print" (!call1 quote "hello")))
         (!call1 op ("!line" 2))
@@ -299,10 +294,10 @@ Here, an example with the code generation library :
                     push 4)
         (!call1 op ("!let" "h" (!callmeth1 (!call1 op ())
                                            addkv (!call1 quote "key") (!call1 quote "value"))))
-    )))
-    (!callmeth o push (!call1 op ("!line" 5)))
-    (!callmeth o push (!call1 op ("!call" "print" (!call1 op ("!index" "h" (!call1 quote "key"))))))
-    (!call print o)
+    ))
+    (!call insert o (!call1 op ("!line" 5)))
+    (!call insert o (!call1 op ("!call" "print" (!call1 op ("!index" "h" (!call1 quote "key"))))))
+    (!call print (!call1 concat o))
 
 
 `$ ./tvmjit ost.t`

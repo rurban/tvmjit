@@ -21,7 +21,7 @@
 #include "tvmconf.h"
 
 #include "lj_arch.h"
-#include "ops.h"
+#include "op.h"
 #include "lunokhod.h"
 
 #if LJ_TARGET_POSIX
@@ -531,7 +531,7 @@ static int pmain(lua_State *L)
   }
   lua_gc(L, LUA_GCSTOP, 0);  /* stop collector during initialization */
   luaL_openlibs(L);  /* open libraries */
-  s->status = tvm_loadbufferx(L, luaJIT_BC_ops, luaJIT_BC_ops_SIZE, "ops", "b")
+  s->status = tvm_loadbufferx(L, luaJIT_BC_op, luaJIT_BC_op_SIZE, "op", "b")
            || docall(L, 0, 1);
   if (s->status != 0) return 0;
   s->status = tvm_loadbufferx(L, luaJIT_BC_lunokhod, luaJIT_BC_lunokhod_SIZE, "lunokhod", "b")
