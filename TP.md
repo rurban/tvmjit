@@ -231,6 +231,10 @@ while statement
 
 In addition to the [Lua standard libraries](http://www.lua.org/manual/5.2/manual.html#6).
 
+#### `tvm.concat (table [, sep [, i [, j]]])`
+
+like `table.concat` but using `tostring` to convert each element.
+
 #### `tvm.dofile ([filename])`
 
 like `dofile` but for TP chunk.

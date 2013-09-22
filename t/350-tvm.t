@@ -9,6 +9,7 @@
 
 (!call (!index tvm "dofile") "TAP.tp")
 
+(!let concat (!index tvm "concat"))
 (!let escape (!index tvm "escape"))
 (!let quote (!index tvm "quote"))
 (!let wchar (!index tvm "wchar"))
@@ -27,7 +28,7 @@
 (!let error_contains error_contains)
 (!let type_ok type_ok)
 
-(!call plan 58)
+(!call plan 65)
 
 (!call contains (!index tvm "_VERSION") "TvmJIT 0.1.2" "variable _VERSION")
 
@@ -189,6 +190,19 @@
 (!call is f !nil "function loadfile (syntax error)")
 (!call contains msg "foo.tp:")
 (!call unlink "foo.tp") ; clean up
+
+(!define t ("a" "b" "c" "d" "e"))
+(!call is (!call concat t) "abcde" "function concat")
+(!call is (!call concat t ",") "a,b,c,d,e")
+(!call is (!call concat t "," 2) "b,c,d,e")
+(!call is (!call concat t "," 2 4) "b,c,d")
+(!call is (!call concat t "," 4 2) "")
+
+(!define t ("a" "b" 3 "d" "e"))
+(!call is (!call concat t ",") "a,b,3,d,e" "function concat (number)")
+
+(!define t ("a" "b" !true "d" "e"))
+(!call is (!call concat t ",") "a,b,true,d,e")
 
 (!let o1 (!call1 op ("!call" "print" (!call1 quote "hello"))))
 (!call is (!call1 tostring o1) "(!call print \"hello\")" "op")
