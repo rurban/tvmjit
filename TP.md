@@ -259,6 +259,14 @@ constructor of `op` representation.
 
 #### `tvm.op:push (v)`
 
+#### `tvm.parse (s [, chunkname])`
+
+parses a TP chunk from a string and returns a `op` tree.
+
+#### `tvm.parsefile ([filename])`
+
+parses a TP chunk from a file and returns a `op` tree.
+
 #### `tvm.quote (s)`
 
 returns a quoted string (not printable character are escaped) suitable to be safely read back by the TP interpreter.

@@ -20,6 +20,8 @@
 (!let loadfile (!index tvm "loadfile"))
 (!let op (!index tvm "op"))
 (!let open (!index io "open"))
+(!let parse (!index tvm "parse"))
+(!let parsefile (!index tvm "parsefile"))
 (!let unlink (!index os "remove"))
 (!let tostring tostring)
 
@@ -28,7 +30,7 @@
 (!let error_contains error_contains)
 (!let type_ok type_ok)
 
-(!call plan 65)
+(!call plan 74)
 
 (!call contains (!index tvm "_VERSION") "TvmJIT 0.1.2" "variable _VERSION")
 
@@ -223,3 +225,20 @@
 (!call insert o o1)
 (!call is (!call1 concat o) "\n(!line 1)(!call print \"hello\")\n(!line 2)(!call print \"hello\")")
 
+(!call is (!call1 tostring (!call1 parse "()")) "()" "parse")
+(!call is (!call1 tostring (!call1 parse ";\n() ; comment")) "()")
+(!call is (!call1 tostring (!call1 parse "()()")) "\n(!do () ())")
+(!call is (!call1 tostring (!call1 parse "\n(!do () ())")) "\n(!do () ())")
+
+(!call is (!call1 tostring (!call1 parse "(1 !true \"foo\")")) "(1 !true \"foo\")")
+(!call is (!call1 tostring (!call1 parse "(\"no\": 0 \"yes\": 1)")) "(\"no\": 0 \"yes\": 1)")
+(!call is (!call1 tostring (!call1 parse "(1 (-2e1 (+3)))")) "(1 (-20 (3)))")
+(!call is (!index (!call1 parse "(3.14)") 1) 3.14)
+
+(!define f (!call open "foo.tp" "w"))
+(!let code "(!assign foo (!lambda (x) (!return x)))")
+(!callmeth f write code)
+(!callmeth f close)
+(!call is (!call1 tostring (!call1 parsefile "foo.tp")) code "parsefile")
+
+(!call unlink "foo.tp") ; clean up

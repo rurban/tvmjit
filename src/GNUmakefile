@@ -692,6 +692,10 @@ op.h: op.tp
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
 
+parse.h: parse.lua
+	$(E) "GEN     $@"
+	$(Q)$(RUN_TVMJIT) -b $< $@
+
 lua/lunokhod.tp: lua/lunokhod.lua
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > lua/lunokhod.j
