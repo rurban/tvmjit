@@ -209,6 +209,11 @@ static void read_string(LexState *ls)
       next(ls);
       continue;
       }
+    case '\n':
+    case '\r':
+      inclinenumber(ls);
+      save(ls, '\n');
+      break;
     default:
       save_and_next(ls);
       break;
