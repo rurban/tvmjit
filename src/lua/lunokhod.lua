@@ -352,12 +352,12 @@ function L:_llex (tok)
                     self:_read_long_string(nil, sep)
                     self:_resetbuffer()
                 else
-                    while not find(newline, self.current) do
+                    while not find(newline, self.current) and self.current ~= '' do
                         self:_next()
                     end
                 end
             else
-                while not find(newline, self.current) do
+                while not find(newline, self.current) and self.current ~= '' do
                     self:_next()
                 end
             end

@@ -279,10 +279,10 @@
 (!do
 (!line 352)(!callmeth self _read_long_string !nil sep)
 (!line 353)(!callmeth self _resetbuffer ))(!do
-(!line 355)(!while (!not (!call find newline (!index self "current")))
+(!line 355)(!while (!and (!not (!call find newline (!index self "current"))) (!ne (!index self "current") ""))
 
 (!line 356)(!callmeth self _next )))))(!do
-(!line 360)(!while (!not (!call find newline (!index self "current")))
+(!line 360)(!while (!and (!not (!call find newline (!index self "current"))) (!ne (!index self "current") ""))
 
 (!line 361)(!callmeth self _next )))))(!if (!eq (!index self "current") "[")
 (!do
