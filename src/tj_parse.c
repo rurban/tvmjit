@@ -2797,3 +2797,92 @@ void lj_parse_init(lua_State *L)
     s->reserved = (uint8_t)(i+1);
   }
 }
+
+static void parse_table(LexState *ls);
+
+static void parse_expr(LexState *ls)
+{
+  switch (ls->token) {
+    case '(': {
+      lj_lex_next(ls);
+      parse_table(ls);
+      break;
+    }
+    case TK_number: {
+//      expr_init(v, (LJ_HASFFI && tviscdata(&ls->tokenval)) ? VKCDATA : VKNUM, 0);
+//      copyTV(ls->L, &v->u.nval, &ls->tokenval);
+      lj_lex_next(ls);
+      break;
+    }
+    case TK_string: {
+//      expr_init(v, VKSTR, 0);
+//      v->u.sval = strV(&ls->tokenval);
+      lj_lex_next(ls);
+      break;
+    }
+    case TK_name: {
+//      GCstr *s = strV(&ls->tokenval);
+      lj_lex_next(ls);
+    }
+    default:
+      err_syntax(ls, LJ_ERR_XEXPR);
+      break;
+  }
+}
+
+void parse_table(LexState *ls)
+{
+  while (!lex_opt(ls, ')')) {
+    parse_expr(ls);
+    if (lex_opt(ls, ':')) {
+      parse_expr(ls);
+      //
+    } else {
+      //
+    }
+  }
+}
+/*
+    self:next()
+    local t = op{}
+    while self.token ~= ')' do
+        local v = self:expr()
+        if self.token == ':' then
+            self:next()
+            t:addkv(v, self:expr())
+        else
+            t:push(v)
+        end
+    end
+    self:next()
+    return t
+*/
+
+void lj_parse_tree(LexState *ls)
+{
+  int idx = 1;
+  lua_State *L = ls->L;
+#ifdef LUAJIT_DISABLE_DEBUGINFO
+  ls->chunkname = lj_str_newlit(L, "=");
+#else
+  ls->chunkname = lj_str_newz(L, ls->chunkarg);
+#endif
+  setstrV(L, L->top, ls->chunkname);  /* Anchor chunkname string. */
+
+  lua_getglobal(L, "tvm");
+  lua_getfield(L, -1, "op");
+  lua_remove(L, -2);
+  lua_newtable(ls->L);
+  lua_pushliteral(ls->L, "!do");
+  lua_rawseti(L, -2, idx++);
+  lua_call(L, 1, 1);
+
+  lj_lex_next(ls);  /* Read-ahead first token. */
+  while (lex_opt(ls, '(')) {
+     parse_table(ls);
+//     lua_rawseti(L, -2, idx++);
+  }
+  if (ls->token != TK_eof)
+    err_token(ls, TK_eof);
+
+}
