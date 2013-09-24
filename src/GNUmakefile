@@ -743,6 +743,10 @@ test:
 test-dump:
 	prove --exec="$(RUN_TVMJIT)" ../t/dump/*.t
 
+json/compiler_recdescent.tp: json/compiler_recdescent.lua lua/lunokhod.tp
+	$(E) "GEN     $@"
+	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
+
 json/parser_recdescent.tp: json/parser_recdescent.lua lua/lunokhod.tp
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
@@ -769,9 +773,10 @@ json/translator_peg.tp: json/translator_peg.lua lua/lunokhod.tp
 ../t/json/test: ../t/json/test.zip
 	cd ../t/json && unzip test.zip && touch test
 
-test-json: json/parser_recdescent.tp \
+test-json: json/grammar.tp \
+           json/compiler_recdescent.tp \
+           json/parser_recdescent.tp \
            json/translator_recdescent.tp \
-           json/grammar.tp \
            json/parser_peg.tp \
            json/translator_peg.tp \
            ../t/json/test
