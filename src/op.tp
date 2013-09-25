@@ -15,15 +15,15 @@
                         (!if (!or (!or (!ne (!call1 type k) "number") (!lt k 0)) (!gt k (!len o)))
                              (!assign (!index t (!add (!len t) 1)) (!mconcat (!call1 tostring k) ": " (!call1 tostring v)))))
                 (!return (!mconcat (!or (!and (!or (!eq (!index o 1) "!line") (!eq (!index o 1) "!do")) "\n(") "(") (!call1 tconcat t " ") ")"))) ))
-(!let op (!call1 setmetatable (
+(!let op (
         "push": (!lambda (self v)
                         (!assign (!index self (!add (!len self) 1)) v)
                         (!return self))
         "addkv": (!lambda (self k v)
                         (!assign (!index self k) v)
                         (!return self))
-        ) ("__call": (!lambda (func t)
-                        (!return (!call1 setmetatable t op_mt))) )))
+        "new": (!lambda (t)
+                        (!return (!call1 setmetatable t op_mt))) ))
 (!assign (!index op_mt "__index") op)
 (!assign (!index tvm "op") op)
 

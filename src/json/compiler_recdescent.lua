@@ -9,7 +9,7 @@
 
 local error = error
 local loadstring = tvm.load
-local op = tvm.op
+local op = tvm.op.new
 local quoted = tvm.quote
 local tonumber = tonumber
 local tostring = tostring

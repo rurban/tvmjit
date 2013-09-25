@@ -18,7 +18,7 @@
 (!let dofile (!index tvm "dofile"))
 (!let load (!index tvm "load"))
 (!let loadfile (!index tvm "loadfile"))
-(!let op (!index tvm "op"))
+(!let op (!index (!index tvm "op") "new"))
 (!let open (!index io "open"))
 (!let parse (!index tvm "parse"))
 (!let parsefile (!index tvm "parsefile"))

@@ -251,7 +251,7 @@ like `load` (5.2) but for TP chunk (includes 5.1 `loadstring`).
 
 like `loadfile` (5.2) but for TP chunk.
 
-#### `tvm.op (table)`
+#### `tvm.op.new (table)`
 
 constructor of `op` representation.
 
@@ -287,7 +287,7 @@ Here, an example with the code generation library :
 `$ cat ost.t`
 
     (!let concat (!index tvm "concat"))
-    (!let op (!index tvm "op"))
+    (!let op (!index (!index tvm "op") "new"))
     (!let quote (!index tvm "quote"))
     (!let insert (!index table "insert"))
 
