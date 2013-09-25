@@ -10,7 +10,7 @@
 local error = error
 local loadstring = tvm.load
 local op = tvm.op.new
-local quoted = tvm.quote
+local quote = tvm.quote
 local tonumber = tonumber
 local tostring = tostring
 local wchar = tvm.wchar
@@ -77,9 +77,9 @@ local function unescape (str)
     return gsub_escape_special:match(gsub_escape_xdigit:match(str))
 end
 
-local quote = P'"'
-local ch = P'\\\\' + P'\\"' + (P(1) - quote - R'\0\31')
-local capt_string = ws * quote * ((ch^0) / unescape) * quote * Cp()
+local double_quote = P'"'
+local ch = P'\\\\' + P'\\"' + (P(1) - double_quote - R'\0\31')
+local capt_string = ws * double_quote * ((ch^0) / unescape) * double_quote * Cp()
 
 local parse_value
 
@@ -95,7 +95,7 @@ local function parse_object (s, pos)
         if not posk then
             error("<string> expected at " .. posn)
         end
-        key = quoted(key)
+        key = quote(key)
         if top[key] then
             error("duplicated key " .. key)
         end
@@ -164,7 +164,7 @@ function parse_value (s, pos)
     end
     capt, posn = capt_string:match(s, pos)
     if posn then
-        return quoted(capt), posn
+        return quote(capt), posn
     end
     error("unexpected character at " .. pos)
 end

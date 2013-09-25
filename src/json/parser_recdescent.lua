@@ -73,9 +73,9 @@ local function unescape (str)
     return gsub_escape_special:match(gsub_escape_xdigit:match(str))
 end
 
-local quote = P'"'
-local ch = P'\\\\' + P'\\"' + (P(1) - quote - R'\0\31')
-local capt_string = ws * quote * ((ch^0) / unescape) * quote * Cp()
+local double_quote = P'"'
+local ch = P'\\\\' + P'\\"' + (P(1) - double_quote - R'\0\31')
+local capt_string = ws * double_quote * ((ch^0) / unescape) * double_quote * Cp()
 
 local parse_value
 

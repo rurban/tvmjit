@@ -11,7 +11,7 @@ local error = error
 local loadstring = tvm.load
 local op = tvm.op.new
 local pairs = pairs
-local quoted = tvm.quote
+local quote = tvm.quote
 local tonumber = tonumber
 local tostring = tostring
 local type = type
@@ -127,7 +127,7 @@ local g = P {
     frac    = P'.' * R'09'^1,
     exp     = S'Ee' * S'-+'^-1 * R'09'^1,
 
-    string  = P'"' * (V'char'^0 / unescape) * P'"' / quoted,
+    string  = P'"' * (V'char'^0 / unescape) * P'"' / quote,
     char    = P'\\\\' + P'\\"' + (P(1) - P'"' - R'\0\31'),
 
     begin_array     = V'ws' * P'[' * V'ws',
