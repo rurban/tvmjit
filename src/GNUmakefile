@@ -759,6 +759,10 @@ json/grammar.tp: json/grammar.lua lua/lunokhod.tp
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
+json/compiler_peg.tp: json/compiler_peg.lua lua/lunokhod.tp
+	$(E) "GEN     $@"
+	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
+
 json/parser_peg.tp: json/parser_peg.lua lua/lunokhod.tp
 	$(E) "GEN     $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
@@ -777,6 +781,7 @@ test-json: json/grammar.tp \
            json/compiler_recdescent.tp \
            json/parser_recdescent.tp \
            json/translator_recdescent.tp \
+           json/compiler_peg.tp \
            json/parser_peg.tp \
            json/translator_peg.tp \
            ../t/json/test
