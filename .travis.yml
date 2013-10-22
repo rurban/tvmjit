@@ -11,3 +11,8 @@ install:
 script:
   - make
   - make -C src fulltest
+
+branches:
+  only:
+    - master
+
