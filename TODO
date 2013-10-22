@@ -1,4 +1,8 @@
 
+features:
+        - native tvm.parse & tvm.parsefile (remove parse.lua)
+        - tvm.load(op tree) without stringification
+
 platform:
         - port msvcbuild.bat
         - port xedkbuild.bat
