@@ -685,45 +685,45 @@ $(TVMJIT_T): $(TARGET_O) $(TVMJIT_O) $(TARGET_DEP)
 RUN_TVMJIT := ./$(TVMJIT_T)
 
 lunokhod.h: lua/lunokhod.lua
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
 
 op.h: op.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
 
 parse.h: parse.lua
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
 
 lua/lunokhod.tp: lua/lunokhod.lua
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > lua/lunokhod.j
 	$(Q)cp lua/lunokhod.j $@
 	$(Q)rm lua/lunokhod.j
 
 lua/lua.tp: lua/lua.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)echo "#!/usr/local/bin/tvmjit" > $@
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< >> $@
 	$(Q)chmod +x $@
 
 nqp/compiler.tp: nqp/compiler.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 nqp/nqp.tp: nqp/nqp.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)echo "#!/usr/local/bin/tvmjit" > $@
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< >> $@
 	$(Q)chmod +x $@
 
 lolcode/translator.tp: lolcode/translator.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 lolcode/lolcode.tp: lolcode/lolcode.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)echo "#!/usr/local/bin/tvmjit" > $@
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< >> $@
 	$(Q)chmod +x $@
@@ -748,15 +748,15 @@ json/compiler_recdescent.tp: json/compiler_recdescent.lua lua/lunokhod.tp
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/parser_recdescent.tp: json/parser_recdescent.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/translator_recdescent.tp: json/translator_recdescent.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/grammar.tp: json/grammar.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/compiler_peg.tp: json/compiler_peg.lua lua/lunokhod.tp
@@ -764,11 +764,11 @@ json/compiler_peg.tp: json/compiler_peg.lua lua/lunokhod.tp
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/parser_peg.tp: json/parser_peg.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 json/translator_peg.tp: json/translator_peg.lua lua/lunokhod.tp
-	$(E) "GEN     $@"
+	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) lua/lunokhod.tp $< > $@
 
 ../t/json/test.zip:
