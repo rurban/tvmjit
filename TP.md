@@ -229,15 +229,16 @@ while statement
 
 ## TVM Library
 
-In addition to the [Lua standard libraries](http://www.lua.org/manual/5.2/manual.html#6).
+In addition to the [Lua standard libraries](http://www.lua.org/manual/5.1/manual.html#5).
 
 #### `tvm.concat (table [, sep [, i [, j]]])`
 
-like `table.concat` but using `tostring` to convert each element.
+like [`table.concat`](http://www.lua.org/manual/5.1/manual.html#pdf-table.concat)
+but using `tostring` to convert each element.
 
 #### `tvm.dofile ([filename])`
 
-like `dofile` but for TP chunk.
+like [`dofile`](http://www.lua.org/manual/5.1/manual.html#pdf-dofile) but for TP chunk.
 
 #### `tvm.escape (s)`
 
@@ -245,11 +246,12 @@ returns a escaped string (`(`, `)`, `:`, and space) suitable to be safely read b
 
 #### `tvm.load (ld [, source [, mode]])`
 
-like `load` (5.2) but for TP chunk (includes 5.1 `loadstring`).
+like [`load`](http://www.lua.org/manual/5.2/manual.html#pdf-load) (5.2) but for TP chunk
+(includes 5.1 [`loadstring`](http://www.lua.org/manual/5.1/manual.html#pdf-loadstring)).
 
 #### `tvm.loadfile (filename [, mode])`
 
-like `loadfile` (5.2) but for TP chunk.
+like [`loadfile`](http://www.lua.org/manual/5.2/manual.html#pdf-loadfile) (5.2) but for TP chunk.
 
 #### `tvm.op.new (table)`
 
@@ -273,12 +275,13 @@ returns a quoted string (not printable character are escaped) suitable to be saf
 
 #### `tvm.unpack (list [, i [, j ]])`
 
-`tvm.unpack` accept `nil` as parameter,
+like [`unpack`](http://www.lua.org/manual/5.1/manual.html#pdf-unpack) but accept `nil` as parameter,
 so `tvm.unpack(t)` is equivalent to `unpack(t or {})`.
 
 #### `tvm.wchar (...)`
 
-like `string.char` but returns a string which is the concatenation of the UTF-8 representation of each integer.
+like [`string.char`](http://www.lua.org/manual/5.1/manual.html#pdf-string.char)
+but returns a string which is the concatenation of the UTF-8 representation of each integer.
 
 ## Code Generation
 
