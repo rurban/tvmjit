@@ -283,6 +283,35 @@ so `tvm.unpack(t)` is equivalent to `unpack(t or {})`.
 like [`string.char`](http://www.lua.org/manual/5.1/manual.html#pdf-string.char)
 but returns a string which is the concatenation of the UTF-8 representation of each integer.
 
+## The C API
+
+In addition to the [C/Lua API](http://www.lua.org/manual/5.2/manual.html#4)
+and the [Auxiliary Library](http://www.lua.org/manual/5.2/manual.html#5).
+
+#### `int tvm_loadx (lua_State *L, lua_Reader reader, void *dt, const char *chunkname, const char *mode);`
+
+like [`lua_load`](http://www.lua.org/manual/5.2/manual.html#lua_load) but for TP chunk.
+
+#### `int (tvm_loadbuffer) (lua_State *L, const char *buff, size_t sz, const char *name);`
+
+like [`luaL_loadbuffer`](http://www.lua.org/manual/5.1/manual.html#luaL_loadbuffer) but for TP chunk.
+
+#### `int (tvm_loadbufferx) (lua_State *L, const char *buff, size_t sz, const char *name, const char *mode);`
+
+like [`luaL_loadbufferx`](http://www.lua.org/manual/5.2/manual.html#luaL_loadbufferx) (5.2) but for TP chunk
+
+#### `int (tvm_loadfile) (lua_State *L, const char *filename);`
+
+like [`luaL_loadfile`](http://www.lua.org/manual/5.1/manual.html#luaL_loadfile) but for TP chunk.
+
+#### `int (tvm_loadfilex) (lua_State *L, const char *filename, const char *mode);`
+
+like [`luaL_loadfilex`](http://www.lua.org/manual/5.2/manual.html#luaL_loadfilex) (5.2) but for TP chunk
+
+#### `int (tvm_loadstring) (lua_State *L, const char *s);`
+
+like [`luaL_loadstring`](http://www.lua.org/manual/5.1/manual.html#luaL_loadstring) but for TP chunk.
+
 ## Code Generation
 
 Here, an example with the code generation library :
