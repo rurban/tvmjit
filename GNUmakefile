@@ -38,6 +38,7 @@ INSTALL_INC=   $(DPREFIX)/include/tvmjit-$(MAJVER).$(MINVER)
 
 INSTALL_LJLIBD= $(INSTALL_SHARE)/tvmjit-$(VERSION)
 INSTALL_JITLIB= $(INSTALL_LJLIBD)/jit
+INSTALL_LUALIB= $(INSTALL_LJLIBD)/lua
 INSTALL_LMODD= $(INSTALL_SHARE)/lua
 INSTALL_LMOD= $(INSTALL_LMODD)/$(ABIVER)
 INSTALL_CMODD= $(INSTALL_LIB)/lua
@@ -64,8 +65,8 @@ INSTALL_TSYM= $(INSTALL_BIN)/$(INSTALL_TSYMNAME)
 INSTALL_PC= $(INSTALL_PKGCONFIG)/$(INSTALL_PCNAME)
 
 INSTALL_DIRS= $(INSTALL_BIN) $(INSTALL_LIB) $(INSTALL_INC) $(INSTALL_MAN) \
-  $(INSTALL_PKGCONFIG) $(INSTALL_JITLIB) $(INSTALL_LMOD) $(INSTALL_CMOD)
-UNINSTALL_DIRS= $(INSTALL_JITLIB) $(INSTALL_LJLIBD) $(INSTALL_INC) \
+  $(INSTALL_PKGCONFIG) $(INSTALL_JITLIB) $(INSTALL_LUALIB) $(INSTALL_LMOD) $(INSTALL_CMOD)
+UNINSTALL_DIRS= $(INSTALL_JITLIB) $(INSTALL_LUALIB) $(INSTALL_LJLIBD) $(INSTALL_INC) \
   $(INSTALL_LMOD) $(INSTALL_LMODD) $(INSTALL_CMOD) $(INSTALL_CMODD)
 
 RM= rm -f
@@ -86,6 +87,7 @@ FILE_PC= tvmjit.pc
 FILES_INC= lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h tvmjit.h tvmconf.h
 FILES_JITLIB= bc.lua v.lua dump.lua dis_x86.lua dis_x64.lua dis_arm.lua \
 	      dis_ppc.lua dis_mips.lua dis_mipsel.lua bcsave.lua vmdef.lua
+FILES_LUALIB= lunokhod.lua
 
 ifeq (,$(findstring Windows,$(OS)))
   ifeq (Darwin,$(shell uname -s))
@@ -122,6 +124,7 @@ install: $(INSTALL_DEP)
 	  $(RM) $(FILE_PC).tmp
 	cd src && $(INSTALL_F) $(FILES_INC) $(INSTALL_INC)
 	cd src/jit && $(INSTALL_F) $(FILES_JITLIB) $(INSTALL_JITLIB)
+	cd src/lua && $(INSTALL_F) $(FILES_LUALIB) $(INSTALL_LUALIB)
 	$(SYMLINK) $(INSTALL_TNAME) $(INSTALL_TSYM)
 	@echo "==== Successfully installed TvmJIT $(VERSION) to $(PREFIX) ===="
 
@@ -130,6 +133,9 @@ uninstall:
 	$(UNINSTALL) $(INSTALL_TSYM) $(INSTALL_T) $(INSTALL_STATIC) $(INSTALL_DYN) $(INSTALL_SHORT1) $(INSTALL_SHORT2) $(INSTALL_MAN)/$(FILE_MAN) $(INSTALL_PC)
 	for file in $(FILES_JITLIB); do \
 	  $(UNINSTALL) $(INSTALL_JITLIB)/$$file; \
+	  done
+	for file in $(FILES_LUALIB); do \
+	  $(UNINSTALL) $(INSTALL_LUALIB)/$$file; \
 	  done
 	for file in $(FILES_INC); do \
 	  $(UNINSTALL) $(INSTALL_INC)/$$file; \
