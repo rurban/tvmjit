@@ -1,0 +1,12 @@
+language: c
+compiler: gcc
+
+# Build and test.
+script:
+  - make
+  - src/luajit -v
+
+branches:
+  only:
+    - lj2
+
