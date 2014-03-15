@@ -1,9 +1,9 @@
 /*
 ** Tvm library.
-** Copyright (C) 2013 Francois Perrad.
+** Copyright (C) 2013-2014 Francois Perrad.
 **
 ** Major parts taken verbatim from the LuaJIT.
-** Copyright (C) 2005-2013 Mike Pall.
+** Copyright (C) 2005-2014 Mike Pall.
 */
 
 #include <stdio.h>

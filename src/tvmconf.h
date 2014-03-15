@@ -1,6 +1,6 @@
 /*
 ** Configuration header.
-** Copyright (C) 2013 Francois Perrad.
+** Copyright (C) 2013-2014 Francois Perrad.
 */
 
 #ifndef tvmconf_h

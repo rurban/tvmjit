@@ -1,4 +1,9 @@
 
+--
+--  TvmJIT : <http://github.com/fperrad/tvmjit/>
+--  Copyright (C) 2013-2014 Francois Perrad.
+--
+
 local char = string.char
 local error = error
 local _find = string.find

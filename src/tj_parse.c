@@ -1,6 +1,6 @@
 /*
 ** tVM parser (source code -> bytecode).
-** Copyright (C) 2013 Francois Perrad.
+** Copyright (C) 2013-2014 Francois Perrad.
 **
 ** Major portions taken verbatim or adapted from the LuaJIT.
 ** Copyright (C) 2005-2014 Mike Pall.

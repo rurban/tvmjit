@@ -1,6 +1,6 @@
 /*
 ** TvmJIT frontend. Runs commands, scripts, read-eval-print (REPL) etc.
-** Copyright (C) 2013 Francois Perrad.
+** Copyright (C) 2013-2014 Francois Perrad.
 **
 ** Major parts taken verbatim from the LuaJIT.
 ** Copyright (C) 2005-2014 Mike Pall.
