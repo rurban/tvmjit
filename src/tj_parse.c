@@ -3,7 +3,7 @@
 ** Copyright (C) 2013 Francois Perrad.
 **
 ** Major portions taken verbatim or adapted from the LuaJIT.
-** Copyright (C) 2005-2013 Mike Pall.
+** Copyright (C) 2005-2014 Mike Pall.
 ** Major portions taken verbatim or adapted from the Lua interpreter.
 ** Copyright (C) 1994-2008 Lua.org, PUC-Rio.
 */
@@ -1563,7 +1563,9 @@ static void fs_fixup_ret(FuncState *fs)
       switch (bc_op(ins)) {
       case BC_CALLMT: case BC_CALLT:
       case BC_RETM: case BC_RET: case BC_RET0: case BC_RET1:
-	offset = bcemit_INS(fs, ins)-(pc+1)+BCBIAS_J;  /* Copy return ins. */
+	offset = bcemit_INS(fs, ins);  /* Copy original instruction. */
+	fs->bcbase[offset].line = fs->bcbase[pc].line;
+	offset = offset-(pc+1)+BCBIAS_J;
 	if (offset > BCMAX_D)
 	  err_syntax(fs->ls, LJ_ERR_XFIXUP);
 	/* Replace with UCLO plus branch. */

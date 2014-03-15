@@ -3,7 +3,7 @@
 ** Copyright (C) 2013 Francois Perrad.
 **
 ** Major portions taken verbatim or adapted from the LuaJIT.
-** Copyright (C) 2005-2013 Mike Pall.
+** Copyright (C) 2005-2014 Mike Pall.
 */
 
 #include <errno.h>

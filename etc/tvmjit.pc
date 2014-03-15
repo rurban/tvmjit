@@ -6,16 +6,18 @@ version=${majver}.${minver}.${relver}
 abiver=5.1
 
 prefix=/usr/local
+multilib=lib
 exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
+libdir=${exec_prefix}/${multilib}
 libname=tvmjit-${abiver}
 includedir=${prefix}/include/tvmjit-${majver}.${minver}
 
 INSTALL_LMOD=${prefix}/share/tvmjit/${abiver}
-INSTALL_CMOD=${prefix}/lib/tvmjit/${abiver}
+INSTALL_CMOD=${prefix}/${multilib}/tvmjit/${abiver}
 
 Name: TvmJIT
 Description: Just-in-time compiler for tVM (table Virtual Machine)
+URL: https://github.com/fperrad/tvmjit
 Version: ${version}
 Requires:
 Libs: -L${libdir} -l${libname}
