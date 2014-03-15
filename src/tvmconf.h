@@ -33,7 +33,7 @@
 #endif
 #define LUA_LROOT	"/usr/local"
 #define LUA_LUADIR	"/lua/5.1/"
-#define TVM_TJDIR	"/tvmjit-0.1.2/"
+#define TVM_TJDIR	"/tvmjit-0.1.3/"
 
 #ifdef TVM_ROOT
 #define TVM_JROOT	TVM_ROOT

@@ -32,7 +32,7 @@
 
 (!call plan 74)
 
-(!call contains (!index tvm "_VERSION") "TvmJIT 0.1.2" "variable _VERSION")
+(!call contains (!index tvm "_VERSION") "TvmJIT 0.1.3" "variable _VERSION")
 
 (!call is (!call escape "a(b:c)d e") "a\\(b\\:c\\)d\\ e")
 
