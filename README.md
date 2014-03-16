@@ -14,3 +14,5 @@ Main differences with LuaJIT :
 - an almost comprehensive test suite (using TAP format)
 
 A Lua interpreter is built over TvmJIT, and it could use libraries like LPeg and lua-linenoise.
+
+TvmJIT is already used by [Nyanga](https://github.com/richardhundt/nyanga/).
