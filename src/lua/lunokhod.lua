@@ -4,8 +4,8 @@
 --  Copyright (C) 2013-2014 Francois Perrad.
 --
 
+
 local _G = _G
-local arg = arg
 local assert = assert
 local char = string.char
 local error = error
@@ -1264,8 +1264,9 @@ end
 
 _G._COMPILER = translate
 
+local arg = arg
 local fname = arg and arg[1]
-if fname then
+if not debug.getinfo(3) and fname then
     local f, msg = _G.io.open(fname, 'r')
     if not f then
         error(msg)

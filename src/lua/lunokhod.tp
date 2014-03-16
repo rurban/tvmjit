@@ -1,7 +1,6 @@
 ; bootstrap
 (!line "@lua/lunokhod.lua" 1)
-(!line 7)(!define _G _G)
-(!line 8)(!define arg arg)
+(!line 8)(!define _G _G)
 (!line 9)(!define assert assert)
 (!line 10)(!define char (!index string "char"))
 (!line 11)(!define error error)
@@ -999,16 +998,17 @@
 (!line 1262)(!return (!call tconcat (!index p "out")))))
 
 (!line 1265)(!assign (!index _G "_COMPILER") translate)
-(!line 1267)(!define fname (!and arg (!index arg 1)))
-(!line 1268)(!if fname
+(!line 1267)(!define arg arg)
+(!line 1268)(!define fname (!and arg (!index arg 1)))
+(!line 1269)(!if (!and (!not (!call (!index debug "getinfo") 3)) fname)
 (!do
-(!line 1269)(!define (f msg) ((!call (!index (!index _G "io") "open") fname "r")))
-(!line 1270)(!if (!not f)
+(!line 1270)(!define (f msg) ((!call (!index (!index _G "io") "open") fname "r")))
+(!line 1271)(!if (!not f)
 (!do
-(!line 1271)(!call error msg)))
-(!line 1273)(!define s (!callmeth f read "*a"))
-(!line 1274)(!callmeth f close )
-(!line 1275)(!define code (!call translate s (!concat "@" fname)))
-(!line 1276)(!call print "; bootstrap")
-(!line 1277)(!call print code)))
+(!line 1272)(!call error msg)))
+(!line 1274)(!define s (!callmeth f read "*a"))
+(!line 1275)(!callmeth f close )
+(!line 1276)(!define code (!call translate s (!concat "@" fname)))
+(!line 1277)(!call print "; bootstrap")
+(!line 1278)(!call print code)))
 ; end of generation
