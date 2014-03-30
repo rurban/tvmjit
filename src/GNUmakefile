@@ -695,30 +695,30 @@ $(TVMJIT_T): $(TARGET_O) $(TVMJIT_O) $(TARGET_DEP)
 RUN_TVMJIT := ./$(TVMJIT_T)
 
 lunokhod.h: lua/lunokhod.lua
-ifdef TRAVIS
-	$(E) "TOUCH     $@"
-	$(Q)touch $@
-else
+ifdef REGEN
 	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
+else
+	$(E) "TOUCH     $@"
+	$(Q)touch $@
 endif
 
 op.h: op.tp
-ifdef TRAVIS
-	$(E) "TOUCH     $@"
-	$(Q)touch $@
-else
+ifdef REGEN
 	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
+else
+	$(E) "TOUCH     $@"
+	$(Q)touch $@
 endif
 
 parse.h: parse.lua
-ifdef TRAVIS
-	$(E) "TOUCH     $@"
-	$(Q)touch $@
-else
+ifdef REGEN
 	$(E) "GEN       $@"
 	$(Q)$(RUN_TVMJIT) -b $< $@
+else
+	$(E) "TOUCH     $@"
+	$(Q)touch $@
 endif
 
 lua/lunokhod.tp: lua/lunokhod.lua
