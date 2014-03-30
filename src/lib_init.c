@@ -27,6 +27,7 @@ static const luaL_Reg lj_lib_load[] = {
   { LUA_BITLIBNAME,	luaopen_bit },
   { LUA_JITLIBNAME,	luaopen_jit },
   { LUA_TVMLIBNAME,	luaopen_tvm },
+  { LUA_UTF8LIBNAME,	luaopen_utf8 },
   { NULL,		NULL }
 };
 

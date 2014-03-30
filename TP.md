@@ -283,6 +283,10 @@ so `tvm.unpack(t)` is equivalent to `unpack(t or {})`.
 like [`string.char`](http://www.lua.org/manual/5.1/manual.html#pdf-string.char)
 but returns a string which is the concatenation of the UTF-8 representation of each integer.
 
+## UTF-8 Library
+
+backported from Lua 5.3.0.
+
 ## The C API
 
 In addition to the [C/Lua API](http://www.lua.org/manual/5.2/manual.html#4)
